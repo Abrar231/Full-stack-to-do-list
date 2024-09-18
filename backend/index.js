@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
-const port = 4000;
 const db = require('./models/index');
 const { where } = require('sequelize');
 const cors =  require('cors');
+const config = require('./config/config');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: config.clientUrl
+}));
 
 app.post('/createTask', async (req, res) => {
     try {
@@ -53,3 +55,5 @@ app.delete('/task/:id', async (req, res) => {
     }
 
 });
+
+module.exports = app;
