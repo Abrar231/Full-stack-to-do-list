@@ -1,8 +1,12 @@
 import { Button } from "./ui/button";
 import type {DeleteModalProps} from '../lib/utils'
+import { useState } from "react";
 
 export default function DeleteModal({setTasks, id, setShowDelete}: DeleteModalProps) {
+    const [isDeleting, setIsDeleting] = useState(false);
+
     const handleYes = async (id: number) => {
+        setIsDeleting(true);
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/task/${id}`,{
             method: 'DELETE',
         });
@@ -13,6 +17,7 @@ export default function DeleteModal({setTasks, id, setShowDelete}: DeleteModalPr
             setTasks(tasks);
             setShowDelete(false);
         }
+        setIsDeleting(false);
     }
 
     const handleNo = () => {
@@ -24,7 +29,7 @@ export default function DeleteModal({setTasks, id, setShowDelete}: DeleteModalPr
             <div className="flex flex-col gap-10 bg-white p-10 rounded-xl">
                 <p>Do you want to delete the task?</p>
                 <div className="flex justify-around">
-                    <Button variant={"destructive"} onClick={() => handleYes(id)}>Yes</Button>
+                    <Button disabled={isDeleting} variant={"destructive"} onClick={() => handleYes(id)}>Yes</Button>
                     <Button onClick={handleNo}>No</Button>
                 </div>
             </div>

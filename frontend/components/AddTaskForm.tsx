@@ -102,7 +102,9 @@ export default function AddTaskForm({setTasks}: AddFormProps) {
                 </FormItem>
             )}
             />
-            <Button type="submit">Submit</Button>
+            <Button disabled={form.formState.isSubmitting} type="submit">
+              Submit
+            </Button>
           </form>
         </Form>
       </div>

@@ -103,7 +103,7 @@ export default function EditModal({setTasks, task, setShowEdit}: EditModalProps)
                     )}
                     />
                     <div className="flex justify-around">
-                        <Button type="submit">Submit</Button>
+                        <Button disabled={form.formState.isSubmitting} type="submit">Submit</Button>
                         <Button onClick={handleCancel} >Cancel</Button>
                     </div>
                 </form>
